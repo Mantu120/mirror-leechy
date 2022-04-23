@@ -27,8 +27,8 @@ from bot.helper.ext_utils.bot_utils import get_readable_file_size, setInterval
 from bot.helper.ext_utils.fs_utils import get_mime_type, get_path_size
 from bot.helper.ext_utils.shortenurl import short_url
 
-LOGGER = getLogger(__name__)
-getLogger('googleapiclient.discovery').setLevel(ERROR)
+LOGGER = logging.getLogger(__name__)
+logging.getLogger('googleapiclient.discovery').setLevel(logging.ERROR)
 
 if USE_SERVICE_ACCOUNTS:
     SERVICE_ACCOUNT_INDEX = randrange(len(listdir("accounts")))
