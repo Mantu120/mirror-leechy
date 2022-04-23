@@ -135,7 +135,7 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
             START = COUNT
         for index, download in enumerate(list(download_dict.values())[START:], start=1):
-            msg += f"<b>╭─📂Fɪʟᴇɴᴀᴍᴇ :</b> <code>{escape(str(download.name()))}</code>"
+            msg += f"<b>📂 Fɪʟᴇɴᴀᴍᴇ :</b> <code>{escape(str(download.name()))}</code>"
             msg += f"\n\n<b>📀 Sᴛᴀᴛᴜꜱ :</b> <i>{download.status()}</i>"
             if download.status() not in [
                 MirrorStatus.STATUS_ARCHIVING,
@@ -150,8 +150,7 @@ def get_readable_message():
                     msg += f"\n<b>🔺Uᴘʟᴏᴀᴅᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                 else:
                     msg += f"\n<b>🔻Dᴏᴡɴʟᴏᴀᴅᴇᴅ :</b>\n {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                    msg += f"\n<b>⚡️Sᴘᴇᴇᴅ :</b> {download.speed()}"
-                    msg += f"\n<b>⌛Eᴛᴀ  :</b> {download.eta()}"
+                    msg += f"\n<b>⚡️ {download.speed()} | ⌛ {download.eta()}"
                 try:
                     msg += f"\n<b>✳️ Sᴇᴇᴅᴇʀꜱ :</b> {download.aria_download().num_seeders}" \
                            f" | <b>✳️ Pᴇᴇʀꜱ :</b> {download.aria_download().connections}"
@@ -162,7 +161,7 @@ def get_readable_message():
                            f" | <b>✳️ Lᴇᴇᴄʜᴇʀꜱ:</b> {download.torrent_info().num_leechs}"
                 except:
                     pass
-                msg += f"\n<b>╰─⛔ Tᴏ Sᴛᴏᴘ :</b> <code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                msg += f"\n<b>⛔ Tᴏ Sᴛᴏᴘ :</b>\n<code>/{BotCommands.CancelMirror} {download.gid()}</code>"
             elif download.status() == MirrorStatus.STATUS_SEEDING:
                 msg += f"\n<b>Size: </b>{download.size()}"
                 msg += f"\n<b>Speed: </b>{get_readable_file_size(download.torrent_info().upspeed)}/s"
