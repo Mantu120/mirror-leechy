@@ -21,8 +21,8 @@ PAGE_NO = 1
 
 
 class MirrorStatus:
-    STATUS_UPLOADING = "Uᴘʟᴏᴀᴅɪɴɢ...📤"
-    STATUS_DOWNLOADING = "Dᴏᴡɴʟᴏᴀᴅɪɴɢ...📥"
+    STATUS_UPLOADING = "Uᴘʟᴏᴀᴅɪɴɢ...🔺"
+    STATUS_DOWNLOADING = "Dᴏᴡɴʟᴏᴀᴅɪɴɢ...🔻"
     STATUS_CLONING = "Cʟᴏɴɪɴɢ...♻️"
     STATUS_WAITING = "Queued...💤"
     STATUS_FAILED = "Fᴀɪʟᴇᴅ 🚫. Cʟᴇᴀɴɪɴɢ Dᴏᴡɴʟᴏᴀᴅ 🧹..."
@@ -136,7 +136,7 @@ def get_readable_message():
             START = COUNT
         for index, download in enumerate(list(download_dict.values())[START:], start=1):
             msg += f"<b>╭─📂Fɪʟᴇɴᴀᴍᴇ :</b> <code>{escape(str(download.name()))}</code>"
-            msg += f"\n\n<b>├─📀 Sᴛᴀᴛᴜꜱ :</b> <i>{download.status()}</i>"
+            msg += f"\n\n<b>📀 Sᴛᴀᴛᴜꜱ :</b> <i>{download.status()}</i>""
             if download.status() not in [
                 MirrorStatus.STATUS_ARCHIVING,
                 MirrorStatus.STATUS_EXTRACTING,
@@ -145,19 +145,20 @@ def get_readable_message():
             ]:
                 msg += f"\n{get_progress_bar_string(download)} {download.progress()}"
                 if download.status() == MirrorStatus.STATUS_CLONING:
-                    msg += f"\n<b>├─♻️Cʟᴏɴᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                    msg += f"\n<b>♻️Cʟᴏɴᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                 elif download.status() == MirrorStatus.STATUS_UPLOADING:
-                    msg += f"\n<b>├─🔺Uᴘʟᴏᴀᴅᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                    msg += f"\n<b>🔺Uᴘʟᴏᴀᴅᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                 else:
-                    msg += f"\n<b>├─🔻Dᴏᴡɴʟᴏᴀᴅᴇᴅ :</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                msg += f"\n<b>├─⚡️Sᴘᴇᴇᴅ :</b> {download.speed()} | ⏲️<b>ETA:</b> {download.eta()}"
+                    msg += f"\n<b>🔻Dᴏᴡɴʟᴏᴀᴅᴇᴅ :</b>\n {get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                    msg += f"\n<b>⚡️Sᴘᴇᴇᴅ :</b> {download.speed()}"
+                    msg += f"\n<b>⌛Eᴛᴀ  :</b> {download.eta()}"
                 try:
-                    msg += f"\n<b>├─❤️ Sᴇᴇᴅᴇʀꜱ :</b> {download.aria_download().num_seeders}" \
+                    msg += f"\n<b>✳️ Sᴇᴇᴅᴇʀꜱ :</b> {download.aria_download().num_seeders}" \
                            f" | <b>✳️ Pᴇᴇʀꜱ :</b> {download.aria_download().connections}"
                 except:
                     pass
                 try:
-                    msg += f"\n<b>├─❤️ Sᴇᴇᴅᴇʀꜱ :</b> {download.torrent_info().num_seeds}" \
+                    msg += f"\n<b>✳️ Sᴇᴇᴅᴇʀꜱ :</b> {download.torrent_info().num_seeds}" \
                            f" | <b>✳️ Lᴇᴇᴄʜᴇʀꜱ:</b> {download.torrent_info().num_leechs}"
                 except:
                     pass
